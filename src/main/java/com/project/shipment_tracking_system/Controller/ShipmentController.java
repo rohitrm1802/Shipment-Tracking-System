@@ -1,7 +1,8 @@
 package com.project.shipment_tracking_system.Controller;
 
-import com.project.shipment_tracking_system.Entity.Shipment;
-import com.project.shipment_tracking_system.Enum.ShipmentStatus;
+import com.project.shipment_tracking_system.DTO.ShipmentRequest;
+import com.project.shipment_tracking_system.DTO.ShipmentResponse;
+import com.project.shipment_tracking_system.DTO.UpdateRequest;
 import com.project.shipment_tracking_system.Service.ShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,27 +16,27 @@ public class ShipmentController {
     @Autowired
     private ShipmentService shipmentService;
 
-    @PostMapping("/create/{shipperId}")
-    public Shipment createShipment(@PathVariable Long shipperId,@RequestBody Shipment shipment)
+    @PostMapping("/create")
+    public ShipmentResponse createShipment(@RequestBody ShipmentRequest request)
     {
-        return shipmentService.CreateShipment(shipperId,shipment);
+        return shipmentService.createShipment(request);
     }
 
     @GetMapping("/getAllShipment")
-    public List<Shipment> getAllShipments()
+    public List<ShipmentResponse> getAllShipments()
     {
         return shipmentService.getAllShipments();
     }
 
-    @GetMapping("/getShipmentById/{id}")
-    public Shipment getShipmentById(@PathVariable Long id)
+    @GetMapping("/getShipmentById/{shipmentId}")
+    public ShipmentResponse getShipmentById(@PathVariable Long shipmentId)
     {
-        return shipmentService.getShipmentById(id);
+        return shipmentService.getShipmentById(shipmentId);
     }
 
     @PutMapping("/updateShipmentStatus/{shipmentId}")
-    public Shipment updateStatus(@PathVariable Long shipmentId, @RequestParam ShipmentStatus shipmentStatus)
+    public ShipmentResponse updateShipment(@PathVariable Long shipmentId, @RequestBody UpdateRequest request)
     {
-        return shipmentService.updateStatus(shipmentId,shipmentStatus);
+        return shipmentService.updateShipment(shipmentId,request);
     }
 }

@@ -42,9 +42,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/user/register","/user/login")
                         .permitAll()
-                        .requestMatchers("/shipment/create/{shipperId}").hasRole("SHIPPER")
+                        .requestMatchers("/shipment/create").hasRole("SHIPPER")
                         .requestMatchers("/shipment/getAllShipment").hasRole("SHIPPER")
-                        .requestMatchers("/shipment/getShipmentById/{id}").hasRole("SHIPPER")
+                        .requestMatchers("/shipment/getShipmentById/{shipmentId}").hasRole("SHIPPER")
                         .requestMatchers("/shipment/updateShipmentStatus/{shipmentId}").hasRole("SHIPPER")
                         .requestMatchers("/bid/placeBid/{shipmentId}").hasRole("CARRIER")
                         .requestMatchers("/bid/getBids/{shipmentId}").hasRole("SHIPPER")

@@ -1,5 +1,7 @@
 package com.project.shipment_tracking_system.Controller;
 
+import com.project.shipment_tracking_system.DTO.BidRequest;
+import com.project.shipment_tracking_system.DTO.BidResponse;
 import com.project.shipment_tracking_system.Entity.Bid;
 import com.project.shipment_tracking_system.Service.BidService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,31 +17,31 @@ public class BidController {
     private BidService bidService;
 
     @PostMapping("/placeBid/{shipmentId}")
-    public Bid placeBid(@PathVariable Long shipmentId, @RequestBody Bid bid)
+    public BidResponse placeBid(@PathVariable Long shipmentId, @RequestBody BidRequest request)
     {
-        return bidService.placeBid(shipmentId,bid);
+        return bidService.placeBid(shipmentId,request);
     }
 
     @GetMapping("/getBids/{shipmentId}")
-    public List<Bid> getBidsByShipment(@PathVariable Long shipmentId)
+    public List<BidResponse> getBidsByShipment(@PathVariable Long shipmentId)
     {
         return bidService.getBidsByShipment(shipmentId);
     }
 
     @GetMapping("/getBidById/{bidId}")
-    public Bid getBidById(@PathVariable Long bidId)
+    public BidResponse getBidById(@PathVariable Long bidId)
     {
         return bidService.getBidById(bidId);
     }
 
     @PutMapping("/acceptBid/{shipmentId}/{bidId}")
-    public String acceptBid(@PathVariable Long shipmentId, @PathVariable Long bidId)
+    public BidResponse acceptBid(@PathVariable Long shipmentId, @PathVariable Long bidId)
     {
         return bidService.acceptBid(shipmentId,bidId);
     }
 
     @PutMapping("/rejectBid/{shipmentId}/{bidId}")
-    public String rejectBid(@PathVariable Long shipmentId, @PathVariable Long bidId)
+    public BidResponse rejectBid(@PathVariable Long shipmentId, @PathVariable Long bidId)
     {
         return bidService.rejectBid(shipmentId,bidId);
     }

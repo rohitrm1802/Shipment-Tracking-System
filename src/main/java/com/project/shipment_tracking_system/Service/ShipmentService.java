@@ -1,5 +1,8 @@
 package com.project.shipment_tracking_system.Service;
 
+import com.project.shipment_tracking_system.DTO.ShipmentRequest;
+import com.project.shipment_tracking_system.DTO.ShipmentResponse;
+import com.project.shipment_tracking_system.DTO.UpdateRequest;
 import com.project.shipment_tracking_system.Entity.Shipment;
 import com.project.shipment_tracking_system.Enum.ShipmentStatus;
 
@@ -7,11 +10,11 @@ import java.util.List;
 
 public interface ShipmentService {
 
-    public Shipment CreateShipment(Long shipperId, Shipment shipment);
+    public ShipmentResponse createShipment(ShipmentRequest request);
 
-    public List<Shipment> getAllShipments();
+    public List<ShipmentResponse> getAllShipments();
 
-    public Shipment getShipmentById(Long id);
+    public ShipmentResponse getShipmentById(Long shipmentId);
 
-    public Shipment updateStatus(Long shipmentId, ShipmentStatus shipmentStatus);
+    public ShipmentResponse updateShipment(Long shipmentId, UpdateRequest update);
 }
