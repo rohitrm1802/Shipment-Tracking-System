@@ -3,12 +3,14 @@ package com.project.shipment_tracking_system.Security;
 import com.project.shipment_tracking_system.Entity.User;
 import com.project.shipment_tracking_system.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -27,7 +29,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                Collections.singleton(() -> "ROLE_" + user.getRole().name())
+                List.of(new SimpleGrantedAuthority("ROLE_" +user.getRole().name()))
+                //Collections.singleton(() -> "ROLE_" + user.getRole().name()) --> old
         );
     }
 }

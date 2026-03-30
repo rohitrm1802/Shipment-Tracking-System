@@ -6,6 +6,7 @@ import com.project.shipment_tracking_system.Entity.Bid;
 import com.project.shipment_tracking_system.Entity.Shipment;
 import com.project.shipment_tracking_system.Entity.User;
 import com.project.shipment_tracking_system.Enum.BidStatus;
+import com.project.shipment_tracking_system.Enum.ShipmentStatus;
 import com.project.shipment_tracking_system.Repository.BidRepository;
 import com.project.shipment_tracking_system.Repository.ShipmentRepository;
 import com.project.shipment_tracking_system.Repository.UserRepository;
@@ -113,6 +114,7 @@ public class BidServiceImpl implements BidService
             if(bid.getId().equals(bidId))
             {
                 bid.setStatus(BidStatus.ACCEPTED);
+                shipment.setStatus(ShipmentStatus.AWAITING_PICKUP);
                 shipment.setCarrier(bid.getCarrier());
                 acceptedBid = bid;
             }

@@ -40,7 +40,9 @@ public class SecurityConfig {
         return http
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/user/register","/user/login")
+                        .requestMatchers("/user/register","/user/login","/test",
+                                "/ws/**",
+                        "/api/tracking/location")
                         .permitAll()
                         .requestMatchers("/shipment/create").hasRole("SHIPPER")
                         .requestMatchers("/shipment/getAllShipment").hasRole("SHIPPER")
@@ -52,7 +54,8 @@ public class SecurityConfig {
                         .requestMatchers("/bid/acceptBid/{shipmentId}/{bidId}").hasRole("SHIPPER")
                         .requestMatchers("/bid/rejectBid/{shipmentId}/{bidId}").hasRole("SHIPPER")
                         .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
+                .httpBasic(httpBasic -> httpBasic.disable())
+                //.httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
