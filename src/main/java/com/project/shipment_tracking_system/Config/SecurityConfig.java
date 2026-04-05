@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .requestMatchers("/shipment/create").hasRole("SHIPPER")
                         .requestMatchers("/shipment/getAllShipment").hasRole("SHIPPER")
                         .requestMatchers("/shipment/getShipmentById/{shipmentId}").hasRole("SHIPPER")
-                        .requestMatchers("/shipment/updateShipmentStatus/{shipmentId}").hasRole("SHIPPER")
+                        .requestMatchers("/shipment/updateShipment/{shipmentId}").hasRole("SHIPPER")
                         .requestMatchers("/bid/placeBid/{shipmentId}").hasRole("CARRIER")
                         .requestMatchers("/bid/getBids/{shipmentId}").hasRole("SHIPPER")
                         .requestMatchers("/bid/getBidById/{bidId}").hasAnyRole("CARRIER","SHIPPER")

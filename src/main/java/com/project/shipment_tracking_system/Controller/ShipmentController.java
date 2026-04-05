@@ -1,10 +1,13 @@
 package com.project.shipment_tracking_system.Controller;
 
+import com.project.shipment_tracking_system.DTO.ApiResponse;
 import com.project.shipment_tracking_system.DTO.ShipmentRequest;
 import com.project.shipment_tracking_system.DTO.ShipmentResponse;
 import com.project.shipment_tracking_system.DTO.UpdateRequest;
 import com.project.shipment_tracking_system.Service.ShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,26 +20,41 @@ public class ShipmentController {
     private ShipmentService shipmentService;
 
     @PostMapping("/create")
-    public ShipmentResponse createShipment(@RequestBody ShipmentRequest request)
+    public ResponseEntity<ApiResponse<ShipmentResponse>> createShipment(@RequestBody ShipmentRequest request)
     {
-        return shipmentService.createShipment(request);
+        ShipmentResponse response = shipmentService.createShipment(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(true,"Shipment Created",response));
     }
 
     @GetMapping("/getAllShipment")
-    public List<ShipmentResponse> getAllShipments()
+    public ResponseEntity<ApiResponse<List<ShipmentResponse>>> getAllShipments()
     {
-        return shipmentService.getAllShipments();
+        List<ShipmentResponse> response = shipmentService.getAllShipments();
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(true,"Shipment Fetched", response)
+        );
     }
 
     @GetMapping("/getShipmentById/{shipmentId}")
-    public ShipmentResponse getShipmentById(@PathVariable Long shipmentId)
+    public ResponseEntity<ApiResponse<ShipmentResponse>> getShipmentById(@PathVariable Long shipmentId)
     {
-        return shipmentService.getShipmentById(shipmentId);
+        ShipmentResponse response = shipmentService.getShipmentById(shipmentId);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(true, "Successfully Fetched", response)
+        );
     }
 
-    @PutMapping("/updateShipmentStatus/{shipmentId}")
-    public ShipmentResponse updateShipment(@PathVariable Long shipmentId, @RequestBody UpdateRequest request)
+    @PutMapping("/updateShipment/{shipmentId}")
+    public ResponseEntity<ApiResponse<ShipmentResponse>> updateShipment(@PathVariable Long shipmentId, @RequestBody UpdateRequest request)
     {
-        return shipmentService.updateShipment(shipmentId,request);
+        ShipmentResponse response = shipmentService.updateShipment(shipmentId,request);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(true, "Shipment updated", response)
+            );
     }
 }

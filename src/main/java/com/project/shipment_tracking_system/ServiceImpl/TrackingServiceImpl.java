@@ -32,6 +32,4 @@ public class TrackingServiceImpl {
 
         messagingTemplate.convertAndSend(topic,request);
     }
-
-
 }
